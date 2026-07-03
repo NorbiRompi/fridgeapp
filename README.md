@@ -1,8 +1,21 @@
-# food_manager
+# fridge manager (version in PL)
+Projekt mający na celu zarządzanie lodówką.
 
-A new Flutter project.
-
-## Getting Started
+## Funkcjalności (checklist)
+- [x] Wpisywanie produktów
+- [x] Dodanie dat ważności
+- [x] Sortowanie po dacie zakończenia 
+- [x] Dodanie ilości danego produktu 
+- [ ] Powiadomienia
+- [ ] Dodanie opcji edycji ilości danego produktu
+- [ ] Lista zakupów
+- [ ] Cena produktów
+- [ ] Przepisy (znajdywanie, zapisywanie i ich cena)
+- [ ] Zrobienie UI
+- [ ] Dodawanie produktów za pomocą kodu kreskowego
+- [ ] Podsumowanie ile wydano na jedzenie
+      
+### temporary for me
 
 This project is a starting point for a Flutter application.
 
