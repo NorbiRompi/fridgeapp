@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'produkt.dart';
 
 class AddProduktDialog extends StatefulWidget {
-  final Function(String, String, int, Jednostka, double) onAdd;
+  final void Function(String nazwa, String data, int ilosc, Jednostka jednostka, double cena) onAdd;
   const AddProduktDialog({super.key, required this.onAdd});
 
   @override

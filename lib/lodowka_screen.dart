@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'produkt.dart';
 import 'add_produkt_dialog.dart';
+import 'edit_produkt_dialog.dart';  
 
 class LodowkaScreen extends StatefulWidget {
   const LodowkaScreen({super.key});
@@ -9,10 +10,12 @@ class LodowkaScreen extends StatefulWidget {
   State<LodowkaScreen> createState() => _LodowkaScreenState();
 }
 
+
 class _LodowkaScreenState extends State<LodowkaScreen> {
   List<Produkt> produkty = [];
   String _wyszukiwanaFraza = '';
   bool _sortujPoDacie = true;
+ 
 
   @override
   void initState() {
@@ -55,6 +58,19 @@ class _LodowkaScreenState extends State<LodowkaScreen> {
     });
   }
 
+void _editProdukt(Produkt produkt) {
+  showDialog(
+    context: context,
+    builder: (context) => EditProduktDialog(
+      produkt: produkt,
+      onSave: () {
+        _saveData(); // Zapisujemy zmiany do SharedPreferences
+        setState(() {}); // Odświeżamy UI
+      },
+    ),
+  );
+}
+
   @override
   Widget build(BuildContext context) {
     final widoczne = _widoczneProdukty;
@@ -75,7 +91,13 @@ class _LodowkaScreenState extends State<LodowkaScreen> {
                 child: ListTile(
                   title: Text(produkt.nazwa),
                   subtitle: Text("Ilość: ${produkt.ilosc} ${produkt.jednostka.name} \nWażne jeszcze: $dni dni \nCena zakupu: ${produkt.cena.toStringAsFixed(2)} zl"),
-                  trailing: IconButton(icon: const Icon(Icons.clear, color: Colors.red), onPressed: () => _removeProdukt(produkt)),
+                  trailing: Wrap(
+                        spacing: 12, // space between two icons
+                        children: <Widget>[
+                          IconButton(icon: const Icon(Icons.clear, color: Colors.red), onPressed: () => _removeProdukt(produkt)),
+                          IconButton(icon: const Icon(Icons.edit, color: Color.fromARGB(255, 0, 0, 0)), onPressed: () => _editProdukt(produkt)),
+                        ],
+                      ), 
                 ),
               );
             },
