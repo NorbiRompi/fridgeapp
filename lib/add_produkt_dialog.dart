@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'produkt.dart';
 
 class AddProduktDialog extends StatefulWidget {
-  final Function(String, String, int, Jednostka) onAdd;
+  final Function(String, String, int, Jednostka, double) onAdd;
   const AddProduktDialog({super.key, required this.onAdd});
 
   @override
@@ -12,6 +12,7 @@ class AddProduktDialog extends StatefulWidget {
 class _AddProduktDialogState extends State<AddProduktDialog> {
   final nameController = TextEditingController();
   final quantityController = TextEditingController();
+  final priceController = TextEditingController();
   DateTime wybranaData = DateTime.now();
   Jednostka wybranaJednostka = Jednostka.gram;
 
@@ -23,7 +24,9 @@ class _AddProduktDialogState extends State<AddProduktDialog> {
         mainAxisSize: MainAxisSize.min,
         children: [
           TextField(controller: nameController, decoration: const InputDecoration(labelText: "Nazwa")),
+          TextField(controller: priceController, decoration: const InputDecoration(labelText: "Cena zakupu"), keyboardType: TextInputType.number),
           TextField(controller: quantityController, decoration: const InputDecoration(labelText: "Ilość"), keyboardType: TextInputType.number),
+          
           DropdownButton<Jednostka>(
             value: wybranaJednostka,
             onChanged: (val) => setState(() => wybranaJednostka = val!),
@@ -34,7 +37,7 @@ class _AddProduktDialogState extends State<AddProduktDialog> {
               DateTime? picked = await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime.now(), lastDate: DateTime(2030));
               if (picked != null) setState(() => wybranaData = picked);
             },
-            child: Text("Data: ${wybranaData.toString().split(' ')[0]}"),
+            child: Text("Data ważności: ${wybranaData.toString().split(' ')[0]}"),
           ),
         ],
       ),
@@ -42,7 +45,7 @@ class _AddProduktDialogState extends State<AddProduktDialog> {
         TextButton(
           onPressed: () {
             if (nameController.text.isNotEmpty) {
-              widget.onAdd(nameController.text, wybranaData.toString().split(' ')[0], int.parse(quantityController.text), wybranaJednostka);
+              widget.onAdd(nameController.text, wybranaData.toString().split(' ')[0], int.parse(quantityController.text), wybranaJednostka, double.parse(priceController.text));
               Navigator.pop(context);
             }
           },

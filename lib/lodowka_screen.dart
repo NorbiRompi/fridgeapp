@@ -41,9 +41,9 @@ class _LodowkaScreenState extends State<LodowkaScreen> {
     await prefs.setStringList('moje_produkty', produkty.map((p) => p.toSaveString()).toList());
   }
 
-  void _addProdukt(String nazwa, String data, int ilosc, Jednostka jednostka) {
+  void _addProdukt(String nazwa, String data, int ilosc, Jednostka jednostka, double cena) {
     setState(() {
-      produkty.add(Produkt(nazwa: nazwa, dataWaznosci: data, ilosc: ilosc, jednostka: jednostka));
+      produkty.add(Produkt(nazwa: nazwa, dataWaznosci: data, ilosc: ilosc, jednostka: jednostka, cena: cena));
       _saveData();
     });
   }
@@ -74,7 +74,7 @@ class _LodowkaScreenState extends State<LodowkaScreen> {
                 color: dni < 1 ? Colors.red[100] : (dni <= 2 ? Colors.yellow[100] : Colors.white),
                 child: ListTile(
                   title: Text(produkt.nazwa),
-                  subtitle: Text("Ilość: ${produkt.ilosc} ${produkt.jednostka.name} \nWażne jeszcze: $dni dni"),
+                  subtitle: Text("Ilość: ${produkt.ilosc} ${produkt.jednostka.name} \nWażne jeszcze: $dni dni \nCena zakupu: ${produkt.cena.toStringAsFixed(2)} zl"),
                   trailing: IconButton(icon: const Icon(Icons.clear, color: Colors.red), onPressed: () => _removeProdukt(produkt)),
                 ),
               );
