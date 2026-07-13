@@ -7,9 +7,9 @@ Projekt mający na celu zarządzanie lodówką.
 - [x] Sortowanie po dacie zakończenia 
 - [x] Dodanie ilości danego produktu 
 - [ ] Powiadomienia
-- [ ] Dodanie opcji edycji ilości danego produktu
+- [x] Dodanie opcji edycji ilości danego produktu
 - [ ] Lista zakupów
-- [ ] Cena produktów
+- [x] Cena produktów
 - [ ] Przepisy (znajdywanie, zapisywanie i ich cena)
 - [ ] Zrobienie UI
 - [ ] Dodawanie produktów za pomocą kodu kreskowego
