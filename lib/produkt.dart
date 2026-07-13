@@ -19,7 +19,7 @@ class Produkt {
     return dataP.difference(dataD).inDays;
   }
   // To pozwoli nam łatwo zamieniać produkt na tekst (do zapisu w SharedPreferences)
-  String toSaveString() => "$nazwa|$dataWaznosci|$ilosc|$jednostka|$cena";
+  String toSaveString() => "$nazwa|$dataWaznosci|$ilosc|${jednostka.name}|$cena";
   
   // To pozwoli odczytać tekst z dysku i zrobić z niego obiekt Produkt
   factory Produkt.fromSaveString(String data) {

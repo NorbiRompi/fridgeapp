@@ -16,6 +16,8 @@ class _AddProduktDialogState extends State<AddProduktDialog> {
   DateTime wybranaData = DateTime.now();
   Jednostka wybranaJednostka = Jednostka.gram;
 
+  double get cena => double.tryParse(priceController.text.replaceAll(',', '.')) ?? 0.0;
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -24,9 +26,8 @@ class _AddProduktDialogState extends State<AddProduktDialog> {
         mainAxisSize: MainAxisSize.min,
         children: [
           TextField(controller: nameController, decoration: const InputDecoration(labelText: "Nazwa")),
-          TextField(controller: priceController, decoration: const InputDecoration(labelText: "Cena zakupu"), keyboardType: TextInputType.number),
+          TextField(controller: priceController, decoration: const InputDecoration(labelText: "Cena zakupu"), keyboardType: const TextInputType.numberWithOptions(decimal: true)),
           TextField(controller: quantityController, decoration: const InputDecoration(labelText: "Ilość"), keyboardType: TextInputType.number),
-          
           DropdownButton<Jednostka>(
             value: wybranaJednostka,
             onChanged: (val) => setState(() => wybranaJednostka = val!),
@@ -42,10 +43,11 @@ class _AddProduktDialogState extends State<AddProduktDialog> {
         ],
       ),
       actions: [
+        TextButton(onPressed: () => Navigator.pop(context), child: const Text('Anuluj')),
         TextButton(
           onPressed: () {
             if (nameController.text.isNotEmpty) {
-              widget.onAdd(nameController.text, wybranaData.toString().split(' ')[0], int.parse(quantityController.text), wybranaJednostka, double.parse(priceController.text));
+              widget.onAdd(nameController.text, wybranaData.toString().split(' ')[0], int.tryParse(quantityController.text) ?? 0, wybranaJednostka, cena);
               Navigator.pop(context);
             }
           },
